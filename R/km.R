@@ -116,7 +116,7 @@ function(formula = ~1, design, response, covtype = "matern5_2",
   }
   
   model@param.estim <- TRUE
-  model@optim.method <- as.character(optim.method)
+  model@optim.method <- optim.method
   
   if ((length(lower) == 0) || (length(upper) == 0)) {
     bounds <- covParametersBounds(model@covariance, design)
