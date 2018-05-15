@@ -52,9 +52,10 @@ setClass("covScaling",
                if (any(diff(knots.i) <= 0.0)) {
                  return("dupplicated values in knots")
                }
-               if (length(knots.i) < 2L) {
-                 return("knots must be of length >=2")
-               }
+               # No longer needed because scalingFun now supports just one knot
+               #if (length(knots.i) < 2L) {
+               #  return("knots must be of length >=2")
+               #}
              }
              
              n.eta <- length(object@eta)
@@ -137,7 +138,12 @@ setMethod("vect2covparam",
               knots.n <- sapply(object@knots, length)
               ind <- rep(names(knots.n), times=knots.n)
               df <- data.frame(values=param, ind=ind)
-              object@eta <- unstack(df)
+              eta <- unstack(df)
+              if(length(eta)!=object@d) {
+                  t.eta=as.list(t(eta))
+                  names(t.eta) <- rownames(eta)
+                  object@eta = t.eta
+              } else object@eta = eta
             }
             return(object)
           }
@@ -229,6 +235,24 @@ setMethod("covMatrixDerivative",
             return(dC)
           }
 )
+
+setMethod("covVector.dx", "covScaling",
+          function(object, x, X, c) {
+              gradfx = array(NaN,length(x))
+              for (i in 1:length(x)) {
+                gradfx[i] = numDeriv::grad(function(xx) scalingFun(matrix(xx,nrow=1), knots=object@knots, eta=object@eta)[i],x[i])
+              }
+              object.covTensorProduct <- as(extract.covIso(object), "covTensorProduct")
+              fx <- scalingFun(matrix(x,nrow=1), knots=object@knots, eta=object@eta)
+              fX <- scalingFun(X, knots=object@knots, eta=object@eta)
+              dk.dx = covVector.dx.covTensorProduct(object=as(object.covTensorProduct, "covTensorProduct"), x=fx, X=fX, c=c)
+              #(g o f)' = f' * (g' o f)
+              for (i in 1:length(x)) {
+                dk.dx[,i] = gradfx[i] * dk.dx[,i]
+              }
+              return(dk.dx)
+          }
+          )
 
 ## ------------
 ## METHOD show

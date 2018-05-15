@@ -196,20 +196,25 @@ setMethod("covMatrixDerivative",
 # Useful METHOD for EGO: covVector.dx
 # ------------------------------------
 
-# setMethod("covVector.dx", "covAffineScaling",
-# function(object, x, X, c) {
-#   object.covTensorProduct <- as(extract.covIso(object), "covTensorProduct")
-#   fx <- affineScalingFun(matrix(x, nrow=1), knots=object@knots, eta=object@eta)
-#   fX <- affineScalingFun(X, knots=object@knots, eta=object@eta)
-#   d <- length(x)
-#   dkScaling.dx <- rep(Na, d)
-#   dk.dx <- covVector.dx.covTensorProduct(object=object.covTensorProduct, x=fx, X=fX, c=c)
-#   for (j in 1:d){
-#     dkScaling.dx[j] <- dk.dx[j] * affineScalingGrad(X=X, knots=object@knots, k=j)
-#   }
-#   return(dkScaling.dx)
-# }
-# )
+setMethod("covVector.dx", "covAffineScaling", 
+          function(object, x, X, c) {
+              gradfx = array(NaN,length(x))
+              #library(numDeriv)
+              for (i in 1:length(x)) {  
+                #gradfx[i] = grad(function(xx) affineScalingFun(matrix(xx,nrow=1), knots=object@knots, eta=object@eta)[i],x[i])
+                gradfx[i] = approx(y=object@eta[i,],x=object@knots,xout=x[i],rule=2)$y
+              }
+
+              object.covTensorProduct <- as(extract.covIso(object), "covTensorProduct")
+              fx <- affineScalingFun(matrix(x,nrow=1), knots=object@knots, eta=object@eta)
+              fX <- affineScalingFun(X, knots=object@knots, eta=object@eta)
+              dk.dx = covVector.dx.covTensorProduct(object=as(object.covTensorProduct, "covTensorProduct"), x=fx, X=fX, c=c)
+              for (i in 1:length(x)) {
+                dk.dx[,i] = gradfx[i] * dk.dx[,i]
+              }
+              return(dk.dx)
+          }
+          )
 
 
 # ------------

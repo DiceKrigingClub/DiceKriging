@@ -12,8 +12,8 @@ Estimation, validation and prediction of kriging models.
 \tabular{ll}{
 Package: \tab DiceKriging\cr
 Type: \tab Package\cr
-Version: \tab 1.5.5\cr
-Date: \tab 2015-04-23\cr
+Version: \tab 1.5.6\cr
+Date: \tab 2016-04-27\cr
 License: \tab GPL-2 | GPL-3 \cr
 }
 }
@@ -26,7 +26,7 @@ License: \tab GPL-2 | GPL-3 \cr
 
 \references{
 
-F. Bachoc (2013), Cross Validation and Maximum Likelihood estimations of hyper-parameters of Gaussian processes with model misspecification. \emph{Computational Statistics and Data Analysis}, \bold{66}, 55-69. \url{http://www.lpma.math.upmc.fr/pageperso/bachoc/publications.html}
+F. Bachoc (2013), Cross Validation and Maximum Likelihood estimations of hyper-parameters of Gaussian processes with model misspecification. \emph{Computational Statistics and Data Analysis}, \bold{66}, 55-69.
 
 N.A.C. Cressie (1993), \emph{Statistics for spatial data}, Wiley series in probability and mathematical statistics.
 

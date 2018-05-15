@@ -22,6 +22,8 @@ function(x, knots, plot = FALSE) {
     n <- length(x)
     nKnots <- length(knots)
 		
+    if (nKnots == 1) return(matrix(0, nrow = n, ncol = nKnots))
+
     if ( any(x < knots[1]) | any(x > knots[nKnots]) )
       stop("'x' values must be inside the knots")
 	
