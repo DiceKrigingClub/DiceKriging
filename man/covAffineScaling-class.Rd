@@ -9,6 +9,7 @@
 \alias{covParametersBounds,covAffineScaling-method}
 \alias{covparam2vect,covAffineScaling-method}
 \alias{vect2covparam,covAffineScaling-method}
+\alias{covVector.dx,covAffineScaling-method}
 \alias{inputnames,covAffineScaling-method}
 %\alias{inputnames<-,covAffineScaling,character-method}
 \alias{kernelname,covAffineScaling-method}
@@ -68,6 +69,7 @@ Class \code{"\linkS4class{covKernel}"}, directly.
     \item{covParametersBounds}{\code{signature(object = "covAffineScaling")}: ... }
     \item{covparam2vect}{\code{signature(object = "covAffineScaling")}: ... }
     \item{vect2covparam}{\code{signature(object = "covAffineScaling")}: ... }
+    \item{covVector.dx}{\code{signature(object = "covAffineScaling")}: ... }
     \item{inputnames}{\code{signature(x = "covAffineScaling")}: ... }
     \item{kernelname}{\code{signature(x = "covAffineScaling")}: ... }
     \item{ninput}{\code{signature(x = "covAffineScaling")}: ... }

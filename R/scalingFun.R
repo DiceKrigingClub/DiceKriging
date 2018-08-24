@@ -8,30 +8,68 @@
 ##
 ##===============================================================
 
+#' @example plot(function(x)scalingFun1d(x,c(0,1),c(.5,.5)))
+#' @example plot(function(x)scalingFun1d(x,c(0,1),c(.5,.75)))
+#' @example plot(function(x)scalingFun1d(x,0,.5))
+#' @example plot(function(x)scalingFun1d(x,c(0,1),c(.5,.75)),xlim=c(-1,2))
+#' @example plot(function(x)scalingFun1d(x,c(0,1.5),c(.5,1.75)),xlim=c(-1,2))
+#' @example plot(function(x)scalingFun1d(x,c(0,.5,1),c(10.5,.5,1.75)),xlim=c(-1,2))
 scalingFun1d <- function(x, knots, eta){
     
   n <- length(x)
   nKnots <- length(knots)
   
+    #if ( any(x < knots[1]-1E-6) | any(x > knots[nKnots]+1E-6) )
+    #    warning("'x' values should be inside the knots (otherwise using closest knot)\nknots =",paste(knots,collapse=","),"\nx = ",paste(x,collapse=","))
+
+    ix_upper= which(x > knots[nKnots])
+    ix_lower = which(x < knots[1])
+    if (length(ix_lower)>0 & length(ix_upper)>0)
+        ix_inside = (1:n)[-c(ix_upper,ix_lower)]
+    else if (length(ix_lower)>0 & length(ix_upper)==0)
+        ix_inside = (1:n)[-ix_lower]
+    else if (length(ix_upper)>0 & length(ix_lower)==0)
+        ix_inside = (1:n)[-ix_upper]
+    else ix_inside=1:n
+
+    newscale_inside = scalingFun1d.inside(x[ix_inside],knots, eta)
+
+    newscale <- rep(NA, n)
+    newscale[ix_inside] = newscale_inside
+
+    ## Support for outside knots
+    if(length(ix_lower)>0) newscale[ix_lower]=eta[1]*(x[ix_lower]-knots[1])
+
+    if(length(ix_upper)>0) {
+        y0=scalingFun1d.inside(knots[nKnots],knots, eta)
+        newscale[ix_upper]=eta[nKnots]*(x[ix_upper]-knots[nKnots])+y0
+    }
+
+    return(newscale)
+}
+
+
+#' Do NOT support when x is outside bounds of knots...
+#' @perf x=runif(100); k=seq(0,1,,10);e=runif(10); scalingFun1d.inside.faster(x,k,e)
+#' @perf Rprof("scaling.prof", line.profiling=TRUE); x=runif(100); k=seq(0,1,,10);e=runif(10); for(i in 1:10000) scalingFun1d.inside(x,k,e); Rprof(NULL); summaryRprof("scaling.prof", lines = "show")
+scalingFun1d.inside <- function(x, knots, eta){
+
+    n <- length(x)
+    nKnots <- length(knots)
+
+    if (nKnots == 1) return(eta*(x-knots))
   if ( any(x < knots[1]) | any(x > knots[nKnots]) )
-    stop("'x' values must be inside the knots")
+        stop("'x' values should be inside the knots (otherwise using closest knot)\nknots =",paste(knots,collapse=","),"\nx = ",paste(x,collapse=","))
   
+    if (length(x)>1){
   xs <- sort(x, index.return = TRUE)
   xsorted <- xs$x
   ind <- xs$ix
+    } else{
+        xsorted=x
+        ind=1
+    }
   
-  ## BUG fix for versions > 1.2. 'rightmost.closed'
-  ## must be set to TRUE
-  inter <- findInterval(x = xsorted, vec = knots,
-                        rightmost.closed = TRUE)
-  
-  inter <- factor(inter, levels = 1:(nKnots-1))
-  
-  ## iCuts is of length nKnot
-  ## the first and last element of 'iCuts' are 0 and  n
-  iCuts <- as.numeric(tapply(xsorted, inter, length))
-  iCuts[is.na(iCuts)] <- 0
-  iCuts <- c(0, cumsum(iCuts))
   scale <- rep(0, n)
   
   ## cat("Calling C\n")
@@ -46,7 +84,7 @@ scalingFun1d <- function(x, knots, eta){
   
   ## CAUTION here: the values are for SORTED x values
   ## they must be put back in the original order.
-  newscale <- rep(0, n) 
+    newscale <- rep(NA, n)
   newscale[ind] <- res$scale
   
   return(newscale)    

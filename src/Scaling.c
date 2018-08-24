@@ -14,7 +14,6 @@
 
 void Scale(int *n,               // length of x
 	   int *nKnots,          // length of knots
-	   int *icuts,           // array of cuts
 	   double *x,            // design points
 	   double *knots,        // knots 
 	   double *eta,          // fun values at knots
@@ -36,6 +35,7 @@ void Scale(int *n,               // length of x
    *=======================================================*/
   
   S = 0.0;
+    i = 0;
 
   for (ell = 0; ell < *nKnots -1; ell++) {
  
@@ -47,7 +47,9 @@ void Scale(int *n,               // length of x
     etaL = eta[ell];
     etaR = eta[ell+1];
     
-    for (i = icuts[ell]; i < icuts[ell+1]; i++) {
+        // patch to avoid usage of icuts which is high CPU demanding
+    if (i < *n)
+    while (x[i] <= knotR) { //for (i = icuts[ell]; i < icuts[ell+1]; i++) {
       
       deltaL = x[i] - knotL;
       deltaR = knotR - x[i];
@@ -55,6 +57,9 @@ void Scale(int *n,               // length of x
       
       scale[ i ] = S + 0.5 * diffL * (etaL * (dKnot + deltaR) + etaR*deltaL);
       
+      i ++;
+
+      if (i >= *n) break;
     }
        
     S += 0.5 * ( etaL + etaR ) * dKnot; 
