@@ -197,6 +197,12 @@ function(model, envir) {
     o <- do.call(rgenoud::genoud, genoudArgs)   
     	
 	}
+	
+	if (is.function(model@optim.method)) {
+            o <- model@optim.method(par=parinit, fn=fn, gr=gr,
+                              lower = lower, upper = upper,
+                              control = control, model=model, envir=envir)
+        }
    
   model@logLik <- as.numeric(o$value)
   
