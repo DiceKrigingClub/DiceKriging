@@ -24,27 +24,27 @@ scalingFun1d <- function(x, knots, eta){
     #if ( any(x < knots[1]-1E-6) | any(x > knots[nKnots]+1E-6) )
     #    warning("'x' values should be inside the knots (otherwise using closest knot)\nknots =",paste(knots,collapse=","),"\nx = ",paste(x,collapse=","))
 
-    ix_upper= which(x > knots[nKnots])
-    ix_lower = which(x < knots[1])
-    if (length(ix_lower)>0 & length(ix_upper)>0)
-        ix_inside = (1:n)[-c(ix_upper,ix_lower)]
-    else if (length(ix_lower)>0 & length(ix_upper)==0)
-        ix_inside = (1:n)[-ix_lower]
-    else if (length(ix_upper)>0 & length(ix_lower)==0)
-        ix_inside = (1:n)[-ix_upper]
-    else ix_inside=1:n
+    ix_upper <- which(x > knots[nKnots])
+    ix_lower <- which(x < knots[1])
+    if (length(ix_lower) > 0 & length(ix_upper) > 0)
+        ix_inside <- (1:n)[-c(ix_upper, ix_lower)]
+    else if (length(ix_lower) > 0 & length(ix_upper) == 0)
+        ix_inside <- (1:n)[-ix_lower]
+    else if (length(ix_upper) > 0 & length(ix_lower) == 0)
+        ix_inside <- (1:n)[-ix_upper]
+    else ix_inside <- 1:n
 
-    newscale_inside = scalingFun1d.inside(x[ix_inside],knots, eta)
+    newscale_inside <- scalingFun1d.inside(x[ix_inside], knots, eta)
 
     newscale <- rep(NA, n)
-    newscale[ix_inside] = newscale_inside
+    newscale[ix_inside] <- newscale_inside
 
     ## Support for outside knots
-    if(length(ix_lower)>0) newscale[ix_lower]=eta[1]*(x[ix_lower]-knots[1])
+    if(length(ix_lower) > 0) newscale[ix_lower] <- eta[1]*(x[ix_lower] - knots[1])
 
-    if(length(ix_upper)>0) {
-        y0=scalingFun1d.inside(knots[nKnots],knots, eta)
-        newscale[ix_upper]=eta[nKnots]*(x[ix_upper]-knots[nKnots])+y0
+    if(length(ix_upper) > 0) {
+        y0 <- scalingFun1d.inside(knots[nKnots], knots, eta)
+        newscale[ix_upper] <- eta[nKnots] * (x[ix_upper] - knots[nKnots]) + y0
     }
 
     return(newscale)
@@ -61,17 +61,18 @@ scalingFun1d.inside <- function(x, knots, eta){
     n <- length(x)
     nKnots <- length(knots)
 
-    if (nKnots == 1) return(eta*(x-knots))
-  if ( any(x < knots[1]) | any(x > knots[nKnots]) )
-        stop("'x' values should be inside the knots (otherwise using closest knot)\nknots =",paste(knots,collapse=","),"\nx = ",paste(x,collapse=","))
+    if (nKnots == 1) return(eta * (x-knots))
+    if (any(x < knots[1]) | any(x > knots[nKnots]))
+        stop("'x' values should be inside the knots (otherwise using closest knot)\nknots =",
+             paste(knots,collapse=","), "\nx = ", paste(x,collapse=","))
   
-  if (length(x)>1) {
+  if (length(x) > 1) {
     xs <- sort(x, index.return = TRUE)
     xsorted <- xs$x
     ind <- xs$ix
-  } else{
-    xsorted=x
-    ind=1
+  } else {
+    xsorted <- x
+    ind <- 1
   }
   
   scale <- rep(0, n)
@@ -156,25 +157,25 @@ scalingFun1d.dx <- function(x, knots, eta){
     #if ( any(x < knots[1]-1E-6) | any(x > knots[nKnots]+1E-6) )
     #    warning("'x' values should be inside the knots (otherwise using closest knot)\nknots =",paste(knots,collapse=","),"\nx = ",paste(x,collapse=","))
 
-    ix_upper= which(x > knots[nKnots])
-    ix_lower = which(x < knots[1])
-    if (length(ix_lower)>0 & length(ix_upper)>0)
-        ix_inside = (1:n)[-c(ix_upper,ix_lower)]
-    else if (length(ix_lower)>0 & length(ix_upper)==0)
-        ix_inside = (1:n)[-ix_lower]
-    else if (length(ix_upper)>0 & length(ix_lower)==0)
-        ix_inside = (1:n)[-ix_upper]
-    else ix_inside=1:n
+    ix_upper <- which(x > knots[nKnots])
+    ix_lower <- which(x < knots[1])
+    if (length(ix_lower) > 0 & length(ix_upper) > 0)
+        ix_inside <- (1:n)[-c(ix_upper, ix_lower)]
+    else if (length(ix_lower) > 0 & length(ix_upper) == 0)
+        ix_inside <- (1:n)[-ix_lower]
+    else if (length(ix_upper) > 0 & length(ix_lower) == 0)
+        ix_inside <- (1:n)[-ix_upper]
+    else ix_inside <- 1:n
 
-    newscale_inside = scalingFun1d.dx.inside(x[ix_inside],knots, eta)
+    newscale_inside <- scalingFun1d.dx.inside(x[ix_inside], knots, eta)
 
     newscale <- rep(NA, n)
-    newscale[ix_inside] = newscale_inside
+    newscale[ix_inside] <- newscale_inside
 
     ## Support for outside knots
-    if(length(ix_lower)>0) newscale[ix_lower]=eta[1]
+    if(length(ix_lower) > 0) newscale[ix_lower] <- eta[1]
 
-    if(length(ix_upper)>0) newscale[ix_upper]=eta[nKnots]
+    if(length(ix_upper) > 0) newscale[ix_upper] <- eta[nKnots]
 
     return(newscale)
 }
@@ -190,18 +191,19 @@ scalingFun1d.dx.inside <- function(x, knots, eta){
     n <- length(x)
     nKnots <- length(knots)
 
-    if (nKnots == 1) return(eta*(x-knots))
+    if (nKnots == 1) return(eta * (x-knots))
 
     if ( any(x < knots[1]) | any(x > knots[nKnots]) )
-        stop("'x' values should be inside the knots (otherwise using closest knot)\nknots =",paste(knots,collapse=","),"\nx = ",paste(x,collapse=","))
+        stop("'x' values should be inside the knots (otherwise using closest knot)\nknots =",
+             paste(knots,collapse=","), "\nx = ", paste(x,collapse=","))
 
-    if (length(x)>1) {
+    if (length(x) > 1) {
         xs <- sort(x, index.return = TRUE)
         xsorted <- xs$x
         ind <- xs$ix
     } else{
-        xsorted = x
-        ind = 1
+        xsorted <- x
+        ind <- 1
     }
 
     scale_dx <- rep(0, n)
