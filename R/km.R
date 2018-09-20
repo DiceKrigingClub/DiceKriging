@@ -60,7 +60,7 @@ function(formula = ~1, design, response, covtype = "matern5_2",
   }
   
   if (isTRUE(scaling) && is.null(knots)) # because we need to setup knots to X boundaries if not set (formerl called affineScaling)
-      knots <- as.list(data.frame(rbind(apply(FUN=min,2,X=design),apply(FUN=max,2,X=design)))) # by default will use min & max for each dimension
+      knots <- as.list(data.frame(rbind(apply(FUN = min, 2, X = design), apply(FUN = max, 2, X = design)))) # by default will use min & max for each dimension
   
   model@covariance <- covStruct.create(covtype = covtype, d = model@d, 
                                        known.covparam = known.covparam, var.names = colnames(X), 
@@ -72,7 +72,7 @@ function(formula = ~1, design, response, covtype = "matern5_2",
   model@known.param <- known.param
   
   ## Now, at least some parameters are unknown
-  if (known.param=="All") {
+  if (known.param == "All") {
     model@trend.coef <- as.numeric(coef.trend)
     model@param.estim <- FALSE
     validObject(model)
