@@ -39,7 +39,8 @@ setClass("covScaling",
              } else if (!all(sapply(object@knots, is.numeric))) {
                return("the knots must be numeric")
              } else if ((!all(names.knots%in%object@var.names)) || (!all(object@var.names%in%names.knots))) {
-               return(paste0("mismatch between the names of knots (",paste0(names.knots,collapse=","),") and input variables (",paste0(object@var.names,collapse=","),")"))
+               return(paste0("mismatch between the names of knots (",paste0(names.knots,collapse=","),") 
+                      and input variables (",paste0(object@var.names,collapse=","),")"))
              }
              for (i in 1L:n.knots) {
                knots.i <- object@knots[[i]]
@@ -59,7 +60,7 @@ setClass("covScaling",
              }
              
              n.eta <- length(object@eta)
-             if (n.eta>0) {
+             if (n.eta > 0) {
                if (n.eta != n.knots) {
                  return("the number of values at knots is different from the number of knots")
                } else if (!all(sapply(object@eta, is.numeric))) {
@@ -98,8 +99,10 @@ setClass("covScaling",
 
 setMethod("covMatrix", 
           signature = "covScaling", 
-          definition = function(object, X, noise.var=NULL) {
-            covMatrix(extract.covIso(object), X=scalingFun(X, knots=object@knots, eta=object@eta), noise.var=noise.var)
+          definition = function(object, X, noise.var = NULL) {
+            covMatrix(extract.covIso(object), 
+                      X = scalingFun(X, knots = object@knots, eta = object@eta), 
+                      noise.var = noise.var)
           }
 )
 
@@ -109,8 +112,11 @@ setMethod("covMatrix",
 
 setMethod("covMat1Mat2", 
           signature = "covScaling", 
-          definition = function(object, X1, X2, nugget.flag=FALSE) {
-            covMat1Mat2(extract.covIso(object), X1=scalingFun(X1, knots=object@knots, eta=object@eta), X2=scalingFun(X2, knots=object@knots, eta=object@eta), nugget.flag=nugget.flag)
+          definition = function(object, X1, X2, nugget.flag = FALSE) {
+            covMat1Mat2(extract.covIso(object), 
+                        X1 = scalingFun(X1, knots = object@knots, eta = object@eta), 
+                        X2 = scalingFun(X2, knots = object@knots, eta = object@eta), 
+                        nugget.flag = nugget.flag)
           }
 )
 
@@ -134,14 +140,14 @@ setMethod("covparam2vect",
 setMethod("vect2covparam", 
           signature = "covScaling", 
           definition = function(object, param){
-            if (length(param)>0) {
+            if (length(param ) >0) {
               knots.n <- sapply(object@knots, length)
-              ind <- rep(names(knots.n), times=knots.n)
-              df <- data.frame(values=param, ind=ind)
+              ind <- rep(names(knots.n), times = knots.n)
+              df <- data.frame(values = param, ind = ind)
                   object@eta <- unstack(df)
                   if (is.data.frame(object@eta))
                       if (ncol(object@eta) != object@d || (ncol(object@eta) == 1 && nrow(object@eta) == 1))
-                          object@eta = as.data.frame(t(object@eta))
+                          object@eta <- as.data.frame(t(object@eta))
 
                   if (is.null(names(object@eta)))
                       names(object@eta) <- names(object@knots)
@@ -178,14 +184,15 @@ setMethod("covParametersBounds",
             knots.n <- sapply(object@knots, length)
             object.tp <- as(extract.covIso(object), "covTensorProduct")
             bounds <- covParametersBounds(object=object.tp, X=X)
-            bounds <- list(lower=rep(1/bounds$upper, times=knots.n), upper=rep(1/bounds$lower, times=knots.n))
+            bounds <- list(lower = rep(1/bounds$upper, times = knots.n), 
+                           upper = rep(1/bounds$lower, times = knots.n))
             return(bounds)
           }
 )
 
 setMethod("paramSample",
           signature = "covScaling", 
-          definition = function(object, n, lower, upper, y=NULL, type="all-sd2-nugget"){
+          definition = function(object, n, lower, upper, y = NULL, type = "all-sd2-nugget"){
             param.n <- object@param.n
             matrixinit <- matrix(runif(n*param.n), nrow = param.n, ncol = n)
             matrixinit <- 1/upper + matrixinit*(1/lower - 1/upper)
@@ -219,11 +226,11 @@ setMethod("covMatrixDerivative",
           signature = "covScaling", 
           definition = function(object, X, C0, k, envir=envir.covScaling) {
             # NOTE : this function MUST be used in a loop over the index k, from 1 to k.max
-            if ((k>=1) & (k<=object@param.n)) {
+            if ((k >= 1) & (k <= object@param.n)) {
               i <- k
-              if (i==1) {
+              if (i == 1) {
                 knots.n <- as.numeric(sapply(object@knots, length))
-                k.vec <- rep(1:object@d, times=knots.n)
+                k.vec <- rep(1:object@d, times = knots.n)
                 l.vec <- sequence(knots.n)
                 envir$k.vec <- k.vec
                 envir$l.vec <- l.vec
@@ -234,16 +241,16 @@ setMethod("covMatrixDerivative",
               k <- k.vec[i]
               l <- l.vec[i]
               
-              if (l==1) {
+              if (l == 1) {
                 object.covTensorProduct <- as(extract.covIso(object), "covTensorProduct")
-                fX <- scalingFun(X, knots=object@knots, eta=object@eta)
-                Dk <- covMatrixDerivative.dx.covTensorProduct(object=object.covTensorProduct, 
-                                                              X=fX, C0=C0, k=k)   
+                fX <- scalingFun(X, knots = object@knots, eta = object@eta)
+                Dk <- covMatrixDerivative.dx.covTensorProduct(object = object.covTensorProduct, 
+                                                              X = fX, C0 = C0, k = k)   
                 envir$Dk <- Dk
               } else {
                 Dk <- envir$Dk
               }
-              df.dkl <- scalingGrad(X=X, knots=object@knots, k)[,l]
+              df.dkl <- scalingGrad(X = X, knots = object@knots, k)[,l]
               A <- outer(df.dkl, df.dkl, "-")
               dC <- Dk*A
             } else if (k == object@param.n + 1) {
@@ -257,21 +264,22 @@ setMethod("covMatrixDerivative",
 
 setMethod("covVector.dx", "covScaling",
           function(object, x, X, c) {
-              gradfx = array(NaN,length(x))
+              gradfx <- array(NaN,length(x))
               # gradfx_ref = array(NaN,length(x))
               for (i in 1:length(x)) {
                   # gradfx_ref[i] = numDeriv::grad(function(xx) scalingFun(matrix(xx,nrow=1), knots=object@knots, eta=object@eta)[i],x[i])
                   name.i <- object@var.names[i]
-                  gradfx[i] = scalingFun1d.dx(x[i], knots=object@knots[[name.i]], eta=object@eta[[name.i]])
+                  gradfx[i] <- scalingFun1d.dx(x[i], knots = object@knots[[name.i]], eta = object@eta[[name.i]])
                   # print(gradfx[i])
               }
               object.covTensorProduct <- as(extract.covIso(object), "covTensorProduct")
-              fx <- scalingFun(matrix(x,nrow=1), knots=object@knots, eta=object@eta)
-              fX <- scalingFun(X, knots=object@knots, eta=object@eta)
-              dk.dx = covVector.dx.covTensorProduct(object=as(object.covTensorProduct, "covTensorProduct"), x=fx, X=fX, c=c)
+              fx <- scalingFun(matrix(x, nrow = 1), knots = object@knots, eta = object@eta)
+              fX <- scalingFun(X, knots = object@knots, eta = object@eta)
+              dk.dx = covVector.dx.covTensorProduct(object = as(object.covTensorProduct, "covTensorProduct"), 
+                                                    x = fx, X = fX, c = c)
               #(g o f)' = f' * (g' o f)
               for (i in 1:length(x)) {
-                  dk.dx[,i] = gradfx[i] * dk.dx[,i]
+                  dk.dx[,i] <- gradfx[i] * dk.dx[,i]
               }
               return(dk.dx)
           }
@@ -298,7 +306,8 @@ setMethod("show",
               param.names <- c(eta.names, knots.names)
               param.names <- formatC(param.names, width = 12)
               name.i <- object@var.names[i]
-              tab <- t(formatC(cbind(object@eta[[name.i]], object@knots[[name.i]]), width = 10, digits = 4, format = "f", flag = " "))
+              tab <- t(formatC(cbind(object@eta[[name.i]], object@knots[[name.i]]), 
+                               width = 10, digits = 4, format = "f", flag = " "))
               n.i <- length(object@knots[[name.i]])
               dimnames(tab) <- list(param.names, rep("", n.i))
               print(tab, quote=FALSE)
