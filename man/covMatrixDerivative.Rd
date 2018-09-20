@@ -16,7 +16,7 @@ covMatrixDerivative(object, X, C0, k, ...)
   \item{X}{a matrix whose columns represent locations. }
   \item{C0}{a matrix corresponding to the covariance matrix for the locations specified in the X argument, when there is no nugget effet nor observation noise. }
   \item{k}{an integer representing the partial derivative index. }
-  \item{\dots}{additional parameters, typically an environment used for storage (when the \code{object} type is \code{covAffineScaling})}
+  \item{\dots}{additional parameters, typically an environment used for storage}
 }
 
 \value{

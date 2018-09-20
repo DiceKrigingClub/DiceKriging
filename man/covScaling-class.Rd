@@ -9,6 +9,7 @@
 \alias{covParametersBounds,covScaling-method}
 \alias{covparam2vect,covScaling-method}
 \alias{vect2covparam,covScaling-method}
+\alias{covVector.dx,covScaling-method}
 \alias{show,covScaling-method}
 \alias{inputnames,covScaling-method}
 \alias{kernelname,covScaling-method}
@@ -67,13 +68,6 @@ Class \code{"\linkS4class{covKernel}"}, directly.
     \item{covparam2vect}{\code{signature(object = "covScaling")}: ... }
     \item{vect2covparam}{\code{signature(object = "covScaling")}: ... }
     \item{show}{\code{signature(object = "covScaling")}: ... }
-    \item{inputnames}{\code{signature(x = "covAffineScaling")}: ... }
-    \item{kernelname}{\code{signature(x = "covAffineScaling")}: ... }
-    \item{ninput}{\code{signature(x = "covAffineScaling")}: ... }
-    \item{nuggetflag}{\code{signature(x = "covAffineScaling")}: ... }
-    \item{nuggetvalue}{\code{signature(x = "covAffineScaling")}: ... }
-    \item{nuggetvalue<-}{\code{signature(x = "covAffineScaling")}: ... }
-    \item{summary}{\code{signature(object = "covAffineScaling")}: ... }
 }
 }
 	
@@ -88,7 +82,6 @@ Y. Xiong, W. Chen, D. Apley, and X. Ding (2007), \emph{Int. J. Numer. Meth. Engn
 \seealso{
 	\code{\linkS4class{km}}
 	\code{\linkS4class{covTensorProduct}}
-	\code{\linkS4class{covAffineScaling}}
       \code{\linkS4class{covIso}}
 	\code{\linkS4class{covKernel}}
 }

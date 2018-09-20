@@ -36,11 +36,7 @@ function(covtype, d, known.covparam, var.names, coef.cov=NULL, coef.var=NULL, nu
 
 	classType <- "covTensorProduct"
 	if (iso) classType <- "covIso"
-	if (scaling) {
-    if (is.null(knots)) {
-      classType <- "covAffineScaling"
-    } else classType <- "covScaling"
-	}
+        if (scaling) classType <- "covScaling"
   
 	covStruct <- new(classType, d=as.integer(d), name=as.character(covtype), 
 		sd2 = as.numeric(coef.var), var.names=as.character(var.names), 
@@ -67,13 +63,6 @@ function(covtype, d, known.covparam, var.names, coef.cov=NULL, coef.var=NULL, nu
 		}
 
 		if (length(coef.cov)>0) covStruct <- vect2covparam(covStruct, coef.cov)
-
-	} else if (classType=="covAffineScaling") {
-   	   	
-		covStruct@paramset.n <- as.integer(1)
-		covStruct@param.n <- as.integer(2*d)
-		covStruct@knots <- c(0,1)
-		if (length(coef.cov)>0) covStruct@eta <- coef.cov
     
 	} else {
     
@@ -85,7 +74,8 @@ function(covtype, d, known.covparam, var.names, coef.cov=NULL, coef.var=NULL, nu
         ordKnots <- sort(knots[[i]], index.return = TRUE)
         knots[[i]] <- ordKnots$x
         if (eta.flag) {
-          if (length(eta[[i]]) != length(knots[[i]])) stop("mismatch between number of knots and number of values at knots")
+                        if (length(eta[[i]]) != length(knots[[i]]))
+                            stop("mismatch between number of knots and number of values at knots")
           eta[[i]] <- eta[[i]][ordKnots$ix]
         }
       }

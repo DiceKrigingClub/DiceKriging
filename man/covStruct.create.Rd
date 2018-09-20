@@ -27,7 +27,7 @@ covStruct.create(covtype, d, known.covparam, var.names, coef.cov = NULL, coef.va
   \item{kernel}{ an optional function containing a new covariance structure}
 }
 
-\value{ A formal S4 class of type \code{\link{covTensorProduct-class}}, \code{\link{covIso-class}} (if \code{iso} is \code{TRUE}) or \code{\link{covAffineScaling-class}} (if \code{scaling} is \code{TRUE}),
+\value{ A formal S4 class of type \code{\link{covTensorProduct-class}}, \code{\link{covIso-class}} (if \code{iso} is \code{TRUE}) (if \code{scaling} is \code{TRUE}),
 or \code{\link{covUser-class}} (if \code{kernel} is \code{TRUE}).}
 
 \author{ O. Roustant, D. Ginsbourger}

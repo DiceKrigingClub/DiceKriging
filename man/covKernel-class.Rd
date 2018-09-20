@@ -5,7 +5,7 @@
 
 \title{Class "covKernel" }
 \description{ Union of classes including "covTensorProduct", 
-"covIso", "covAffineScaling", "covScaling" and "covUser"}
+"covIso", "covScaling" and "covUser"}
 \section{Objects from the Class}{A virtual Class: No objects may be created from it.}
 \section{Methods}{
 No methods defined with class "covKernel" in the signature.

@@ -36,9 +36,6 @@ Class \code{"\linkS4class{covKernel}"}, directly.
     \item{covMat1Mat2}{\code{signature(object = "covScaling")}: ... }
     \item{covMatrix}{\code{signature(object = "covScaling")}: ... }
     \item{show}{\code{signature(object = "covScaling")}: ... }
-    \item{nuggetflag}{\code{signature(x = "covAffineScaling")}: ... }
-    \item{nuggetvalue}{\code{signature(x = "covAffineScaling")}: ... }
-    \item{nuggetvalue<-}{\code{signature(x = "covAffineScaling")}: ... }
   }
 }
 	
@@ -52,7 +49,6 @@ Class \code{"\linkS4class{covKernel}"}, directly.
 \seealso{
 	\code{\linkS4class{km}}
 	\code{\linkS4class{covTensorProduct}}
-	\code{\linkS4class{covAffineScaling}}
       \code{\linkS4class{covIso}}
 	\code{\linkS4class{covKernel}}
 }

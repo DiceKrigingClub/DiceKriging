@@ -384,7 +384,6 @@ doe <- data.frame(x=seq(0,1,,20))
 resp <- f11_xiong(doe)
 
 knots <- list(  c(0,0.5,1) )
-eta <- list(c(15, 2, 0.5))
 m <- km(design=doe, response=resp, scaling=TRUE, gr=TRUE,
         knots=knots, covtype="matern5_2",  coef.var=1, coef.trend=0,
         control=list(trace=FALSE))

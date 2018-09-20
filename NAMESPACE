@@ -10,7 +10,7 @@ importFrom("utils", "unstack")
 
 
 ## S4
-exportClasses(covTensorProduct, covIso, covScaling, covKernel, km, covAffineScaling, covUser)
+exportClasses(covTensorProduct, covIso, covScaling, covKernel, km, covUser)
 ## All methods, for own or "foreign" generics:
 exportMethods(show, plot, predict, simulate, update, covMatrix, covMat1Mat2, 
 covMatrixDerivative, covVector.dx, covParametersBounds, covparam2vect, vect2covparam, coef, summary, inputnames, ninput, kernelname, nuggetvalue, "nuggetvalue<-", nuggetflag)
@@ -52,7 +52,5 @@ export(branin,
        scalingFun1d,
        scalingGrad,       
        trend.deltax,
-       affineScalingFun,
-       affineScalingGrad,
        trendMatrix.update)
 

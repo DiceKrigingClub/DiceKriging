@@ -4,5 +4,5 @@
 
 setClassUnion("covKernel", 
               c("covTensorProduct", "covIso", 
-                "covAffineScaling", "covScaling", 
+                "covScaling",
                 "covUser")) #, "covAdditive0"))
