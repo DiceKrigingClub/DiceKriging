@@ -58,3 +58,11 @@ deploy:
 env:
   global:
     secure: e5QVfrHJXWElN1+/wrzVzbNLy8RX9E8LJWtA4K2uWx+D0YAD0HdxpJlsunBy5n9kGcSJJfWm+yVQG0bVNL7xMf9opx90wWBWPeEWHIpEJCChXcgoBCQLAdgCwndfjwrNnOZAVwhvKUEuNqC+lKzmdTO4bnHqIzp4bh38rzkXxb47rGPMZPz0WmR3g2YlIW0AS0WFRfa5iHg1GkAVeFi6YVeHTshEk38sXA37bIBoaCtG6uVUAzggwdMtDEEJFT5bdbpmtOOFaZCiVnkob/VnZZIPg4b6uqHYt2KSPL6613IyuP+J1RZp+DGYTbU+XnuBysoiCjGJous7FWDmivLeZk4HDob35NTbYh44WOihudrgPqVbthXpsrN69K7ZCAypQZz1WSLLw8CYfAhQ70IDkg1FtzWwlbVBRJC8xrI5RoqeXFk8OWJp7y2EB/CZQpu6DeoljWk08fBQDUVTkLibD5tkNN3H08R1zaLe/vwEB1dmYsDAZspaXr0d/LBmJUQdsTGWMLlnVccaKpxzO9jj5ZoShUyjLZBzEgLqtSkRYJJo2LEcdviz3WA9YGCdCuLjGwDNsnG6yrJAZ+v9BasrxOt3Ohdo7xkjfGpiSrY/wXQ+J/2uTBpxVX94bMtLFtuHpeNFQyAtNfkiz4N6qZUegAPN0KE6XnydW9nNHhZ2YcQ=
+
+notifications:
+  email:
+    recipients:
+      - roustant@emse.fr
+      - richetyann@gmail.com
+    on_success: change
+    on_failure: always
