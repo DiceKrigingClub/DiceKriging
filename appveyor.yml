@@ -56,3 +56,11 @@ deploy:
     branch:
       master
 
+notifications:
+  - provider: Email
+    to:
+      - roustant@emse.fr
+      - richetyann@gmail.com
+    subject: 'Build {{status}}'                  # optional
+    on_build_failure: true
+    on_build_status_changed: true
