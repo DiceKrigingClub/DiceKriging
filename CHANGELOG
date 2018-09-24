@@ -1,13 +1,18 @@
 ## DiceKriging 1.5.6
 ## change / DiceKriging 1.5.5
   
-  * Verification of names consistency in scaling, between knots and design [Thanks to Yann Richet]
+  * Scaling [Thanks to Yann Richet]: 
+  	- Speed-up of computation with a scaling kernel
+	- Implementation of the derivative with respect to x  
+	- Now accepts zero nodes (then equivalent to regular kriging without scaling)
+	- Verification of names consistency in scaling, between knots and design
+	- Addition of tests for trustworthyness
+  * Bug corrected in initialization & multistart (parinit was not accepting matrices in kmNoNugget.init) [Thanks to Adrien Spagnol]
   * A clear error message is returned if package 'rgenoud' is not found [Thanks to Clement Walter]
   * Multistart now accounts for failed results [Thanks to David Ojeida]
   * Correction of the doc of 'predict.km' for Tinv.c (transpose was missing in the previous version) [Thanks to Hao Wang]
   * Modification of the NAMESPACE to fit with new CRAN requirements
-  * Now accepts scaling/warping with zero nodes (then equivalent to regular kriging without scaling)
-
+  
 ## change / DiceKriging 1.5.4
   * Deletion of the beta version of the replacement method 'coef<-', in order to avoid conflicts with GPlab
   * Correction of a NOTE in CRAN Package Check Results: Registration of S3 methods for 'logLik.km', 'plot.km', 'predict.km'
