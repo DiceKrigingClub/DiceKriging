@@ -1,4 +1,4 @@
-useDynLib(DiceKriging) 
+useDynLib(DiceKriging, .registration = TRUE)
 
 import(methods)
 importFrom("graphics", "abline", "lines", "matplot", "par", "plot")

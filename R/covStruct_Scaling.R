@@ -213,8 +213,7 @@ covMatrixDerivative.dx.covTensorProduct <- function(object, X, C0, k) {
               as.double(X), as.integer(n), as.integer(d),
               as.double(param), as.character(object@name),
               as.integer(k), as.double(C0),
-              ans = double(n * n),
-              PACKAGE="DiceKriging")
+              ans = double(n * n))
 
     return(matrix(out$ans, n, n))
 }
