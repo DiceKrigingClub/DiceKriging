@@ -97,7 +97,7 @@ setMethod("covMat1Mat2",
                         as.double(X2), as.integer(n2), 
                         as.integer(ncol(X1)),
                         as.double(0), as.double(object@nugget), "whitenoise",
-                        ans = double(n1 * n2), PACKAGE="DiceKriging")
+                        ans = double(n1 * n2))
               N <- matrix(out$ans, n1, n2)
               return(M+N) 
             }

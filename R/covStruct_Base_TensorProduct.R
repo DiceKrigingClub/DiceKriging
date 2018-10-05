@@ -93,8 +93,7 @@ covMatrix.covTensorProduct <- function(object, X, noise.var=NULL) {
   out <- .C("C_covMatrix", 
             as.double(X), as.integer(n), as.integer(d), 
             as.double(param), as.double(object@sd2), as.character(object@name), 
-            ans = double(n * n),
-            PACKAGE="DiceKriging")
+            ans = double(n * n))
   
   C <- matrix(out$ans, n, n)   # covariance matrix when there is no nugget effect
   
@@ -142,7 +141,7 @@ covMat1Mat2.covTensorProduct <- function(object, X1, X2, nugget.flag=FALSE) {
             as.double(X2), as.integer(n2), 
             as.integer(d),
             as.double(param), as.double(object@sd2), as.character(object@name),
-            ans = double(n1 * n2), PACKAGE="DiceKriging")
+            ans = double(n1 * n2))
   
   M <- matrix(out$ans, n1, n2)
   
@@ -154,7 +153,7 @@ covMat1Mat2.covTensorProduct <- function(object, X1, X2, nugget.flag=FALSE) {
               as.double(X2), as.integer(n2), 
               as.integer(d),
               as.double(param), as.double(object@nugget), "whitenoise",
-              ans = double(n1 * n2), PACKAGE="DiceKriging")
+              ans = double(n1 * n2))
     N <- matrix(out$ans, n1, n2)
     return(M+N)
   }
@@ -340,8 +339,7 @@ covMatrixDerivative.covTensorProduct <- function(object, X, C0, k) {
               as.double(X), as.integer(n), as.integer(d), 
               as.double(param), as.character(object@name),
               as.integer(k), as.double(C0),
-              ans = double(n * n),
-              PACKAGE="DiceKriging")
+              ans = double(n * n))
     return(matrix(out$ans, n, n))
   } else if (k==(object@param.n+1)) {     # derivative with respect to sigma^2
     return(C0 / object@sd2)
