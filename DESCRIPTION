@@ -6,6 +6,6 @@ Author: Olivier Roustant, David Ginsbourger, Yves Deville. Contributors: Clement
 Maintainer: Olivier Roustant <roustant@emse.fr>
 Description: Estimation, validation and prediction of kriging models. Important functions : km, print.km, plot.km, predict.km.
 Depends: methods
-Suggests: rgenoud, foreach, doParallel, testthat, numDeriv
+Suggests: rgenoud (>=5.8-2.0), foreach, doParallel, testthat, numDeriv
 License: GPL-2 | GPL-3
 URL: https://dicekrigingclub.github.io/www/
