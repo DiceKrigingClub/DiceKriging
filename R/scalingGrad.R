@@ -25,7 +25,7 @@ scalingGrad1d <- function(x, knots, plot = FALSE) {
     grad <- rep(0, n*nKnots)
     
 ## cat("Calling C\n")
-    res <- .C("gradScale",
+    res <- .C(gradScale,
               n = as.integer(n),
               nKnots = as.integer(nKnots),
               iCuts = as.integer(iCuts),  

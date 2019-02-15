@@ -209,7 +209,7 @@ covMatrixDerivative.dx.covTensorProduct <- function(object, X, C0, k) {
 
     param <- covparam2vect(object)
 
-    out <- .C("C_covMatrixDerivative_dx",
+    out <- .C(C_covMatrixDerivative_dx,
               as.double(X), as.integer(n), as.integer(d),
               as.double(param), as.character(object@name),
               as.integer(k), as.double(C0),

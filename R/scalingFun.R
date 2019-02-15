@@ -77,7 +77,7 @@ scalingFun1d.inside <- function(x, knots, eta){
   
   scale <- rep(0, n)
   
-  res <- .C("Scale",
+  res <- .C(Scale,
             n = as.integer(n),
             nKnots = as.integer(nKnots),
             x = as.double(xsorted), 
@@ -208,7 +208,7 @@ scalingFun1d.dx.inside <- function(x, knots, eta){
 
     scale_dx <- rep(0, n)
 
-    res <- .C("Scale_dx",
+    res <- .C(Scale_dx,
               n = as.integer(n),
               nKnots = as.integer(nKnots),
               x = as.double(xsorted),

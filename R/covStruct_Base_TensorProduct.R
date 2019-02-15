@@ -90,7 +90,7 @@ covMatrix.covTensorProduct <- function(object, X, noise.var=NULL) {
   
   param <- covparam2vect(object)
   
-  out <- .C("C_covMatrix", 
+  out <- .C(C_covMatrix, 
             as.double(X), as.integer(n), as.integer(d), 
             as.double(param), as.double(object@sd2), as.character(object@name), 
             ans = double(n * n))
@@ -136,7 +136,7 @@ covMat1Mat2.covTensorProduct <- function(object, X1, X2, nugget.flag=FALSE) {
   
   param <- covparam2vect(object)
   
-  out <- .C("C_covMat1Mat2", 
+  out <- .C(C_covMat1Mat2, 
             as.double(X1), as.integer(n1),
             as.double(X2), as.integer(n2), 
             as.integer(d),
@@ -148,7 +148,7 @@ covMat1Mat2.covTensorProduct <- function(object, X1, X2, nugget.flag=FALSE) {
   if ((!nugget.flag) | (!object@nugget.flag)) {
     return(M)
   } else {
-    out <- .C("C_covMat1Mat2", 
+    out <- .C(C_covMat1Mat2, 
               as.double(X1), as.integer(n1),
               as.double(X2), as.integer(n2), 
               as.integer(d),
@@ -335,7 +335,7 @@ covMatrixDerivative.covTensorProduct <- function(object, X, C0, k) {
   k <- as.integer(k)
   
   if ((k >=1) & (k <= object@param.n)) {  # derivative with respect to theta_k
-    out <- .C("C_covMatrixDerivative", 
+    out <- .C(C_covMatrixDerivative, 
               as.double(X), as.integer(n), as.integer(d), 
               as.double(param), as.character(object@name),
               as.integer(k), as.double(C0),
@@ -366,7 +366,7 @@ covVector.dx.covTensorProduct <- function(object, x, X, c) {
   
   param <- covparam2vect(object)
   
-  out <- .C("C_covVector_dx", 
+  out <- .C(C_covVector_dx, 
             as.double(x), as.double(X), 
             as.integer(n), as.integer(d),
             as.double(param), as.character(object@name), 

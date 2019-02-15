@@ -92,7 +92,7 @@ setMethod("covMat1Mat2",
             } else {
               n1 <- nrow(X1)
               n2 <- nrow(X2)
-              out <- .C("C_covMat1Mat2", 
+              out <- .C(C_covMat1Mat2, 
                         as.double(X1), as.integer(n1),
                         as.double(X2), as.integer(n2), 
                         as.integer(ncol(X1)),
