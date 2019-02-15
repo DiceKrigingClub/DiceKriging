@@ -13,7 +13,7 @@ Estimation, validation and prediction of kriging models.
 Package: \tab DiceKriging\cr
 Type: \tab Package\cr
 Version: \tab 1.5.6\cr
-Date: \tab 2018-08-23\cr
+Date: \tab 2018-10-08\cr
 License: \tab GPL-2 | GPL-3 \cr
 }
 }
@@ -80,7 +80,7 @@ A previous version of this package was conducted within the frame of the DICE (D
 
 The authors wish to thank Laurent Carraro, Delphine Dupuy and Celine Helbert for fruitful discussions about the structure of the code, and Francois Bachoc for his participation in validation and estimation by leave-one-out. They also thank Gregory Six and Gilles Pujol for their advices on practical implementation issues, as well as the DICE members for useful feedbacks.
 
-Package \code{rgenoud} >=5.3.3. is recommended.
+Package \code{rgenoud} >= 5.8-2.0 is recommended.
 
 Important functions or methods:
 \tabular{ll}{
