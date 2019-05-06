@@ -13,6 +13,7 @@ trend.deltax <- function(x, model, h=sqrt(.Machine$double.eps)){
 
   formula <- model@trend.formula
   
+  if (FALSE){
   if (formula==~1){ # OK case
     grad.intercept <- matrix(0, nrow=1, ncol=d,
                              dimnames=list("(Intercept)", 1:d))
@@ -41,6 +42,7 @@ trend.deltax <- function(x, model, h=sqrt(.Machine$double.eps)){
     rownames(grad.inter) <- names.inter
     return(rbind(grad.linear, grad.inter))
   } # end analytic cases
+  }
   
   A <- matrix(x, nrow=d, ncol=d, byrow=TRUE)
   colnames(A) <- colnames(x)
