@@ -49,17 +49,12 @@ trend.deltax <- function(x, model, h=sqrt(.Machine$double.eps)){
       return(rbind(grad.intercept, grad.linQuad))
     }
     if (caseLin2inter){
-      #grad.inter <- matrix(0, nrow=as.integer(d*(d-1)/2), ncol=d)
-      # names.f <- colnames(model.matrix(~.^2, data=data.frame(x)))
-      # names.inter <- names.f[-(1:(d+1))]
       grad.lin2inter <- grad.lin
       for (j in 1:(d-1)){
         A <- matrix(0, nrow = d-j, ncol = d)
         A[, j] <- x[(j+1):d]
         A[, (j+1):d] <- diag(x[j], nrow = d-j, ncol = d-j)
         grad.lin2inter <- rbind(grad.lin2inter, A)
-        # index <- grep(names.x[j], names.inter)
-        # grad.inter[index,j] <- x[-j]
       }
       rownames(grad.lin2inter) <- formula.lin2inter.label
       return(rbind(grad.intercept, grad.lin2inter))
