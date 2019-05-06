@@ -8,7 +8,7 @@ y <- apply(X, 1, fun)
 x <- c(0.2, 0.4, 0.6)
 coef.cov=c(0.5, 0.9, 1.3); coef.var=3
 
-precision <- 1e-10  # the three following tests should work with it, since the computations are analytical
+precision <- 1e-5  # the three following tests should work with it, since the computations are analytical
 
 m <- km(~1, design=X, response=y, coef.cov=coef.cov, coef.var=coef.var)
 grad.trend <- trend.deltax(x, m)
