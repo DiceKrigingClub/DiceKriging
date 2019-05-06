@@ -26,7 +26,7 @@ O. Roustant, Ecole des Mines de St-Etienne.
 }
 
 \note{
-The gradient is computed analytically in 3 common practical situations: \code{formula=~1} (constant trend), \code{formula=~.} (first order polynomial), \code{formula=~.^2} (1st order polynomial + interactions). In the other cases, the gradient is approximated by a finite difference of the form \code{(g(x+h)-g(x-h))/2h}, where \code{h} is tunable. 
+The gradient is computed analytically in 4 common practical situations: \code{formula=~1} (constant trend), \code{formula=~.} (first-order polynomial), \code{formula=~.^2} (first-order polynomial + second-order interactions), first-order polynomial + (pure) quadratic terms. In the other cases, the gradient is approximated by a finite difference of the form \code{(g(x+h)-g(x-h))/2h}, where \code{h} is tunable. 
 }
 
 \seealso{  \code{\link{covVector.dx}} }
@@ -46,6 +46,11 @@ x <- c(0.2, 0.4, 0.6)
 coef.cov=c(0.5, 0.9, 1.3); coef.var=3
 
 m <- km(~.^2, design=X, response=y, coef.cov=coef.cov, coef.var=coef.var)
+grad.trend <- trend.deltax(x, m)
+print(grad.trend)
+
+m <- km(~. + I(x1^2) + I(x2^2) + I(x3^2), 
+        design=X, response=y, coef.cov=coef.cov, coef.var=coef.var)
 grad.trend <- trend.deltax(x, m)
 print(grad.trend)
 }

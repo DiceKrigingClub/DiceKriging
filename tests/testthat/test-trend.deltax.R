@@ -6,9 +6,10 @@ fun <- function(x){
 y <- apply(X, 1, fun) 
 
 x <- c(0.2, 0.4, 0.6)
-coef.cov=c(0.5, 0.9, 1.3); coef.var=3
+coef.cov <- c(0.5, 0.9, 1.3) 
+coef.var <- 3
 
-precision <- 1e-5  # the three following tests should work with it, since the computations are analytical
+precision <- 1e-10  # the three following tests should work with it, since the computations are analytical
 
 m <- km(~1, design=X, response=y, coef.cov=coef.cov, coef.var=coef.var)
 grad.trend <- trend.deltax(x, m)
@@ -18,6 +19,12 @@ test_that(desc="test trend.delta.x, formula=~1", expect_true(max(abs(grad.trend-
 m <- km(~., design=X, response=y, coef.cov=coef.cov, coef.var=coef.var)
 grad.trend <- trend.deltax(x, m)
 grad.trueValue <- rbind(matrix(0, ncol=d), diag(d))
+test_that(desc="test trend.delta.x, formula=~.", expect_true(max(abs(grad.trend-grad.trueValue)) < precision))
+
+m <- km(~. + I(x1^2) + I(x2^2) + I(x3^2), 
+        design=X, response=y, coef.cov=coef.cov, coef.var=coef.var)
+grad.trend <- trend.deltax(x, m)
+grad.trueValue <- rbind(matrix(0, ncol=d), diag(d), 2*diag(x))
 test_that(desc="test trend.delta.x, formula=~.", expect_true(max(abs(grad.trend-grad.trueValue)) < precision))
 
 m <- km(~.^2, design=X, response=y, coef.cov=coef.cov, coef.var=coef.var)
