@@ -6,7 +6,7 @@ importFrom("stats", "as.formula", "dist", "lm", "model.matrix",
      "optim", "qnorm", "qqline", "qqnorm", "qt", "quantile",
      "reformulate", "rnorm", "runif", "sd", "terms", "var",
      "predict", "logLik", "coef", "coefficients", "simulate", "update")
-importFrom("utils", "unstack")
+importFrom("utils", "unstack", "combn")
 
 
 ## S4
