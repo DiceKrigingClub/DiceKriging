@@ -9,19 +9,24 @@ set.seed(1)
 test_that.km <- function(model, trend.coef=NULL, covariance.sd2=NULL, covariance.range.val=NULL, covariance.nugget=NULL, covariance.eta=NULL, precision=1e-4) {
 
     if (!is.null(trend.coef))
-        test_that(desc=paste0("Check kriging trend: ",model@trend.coef," == ",trend.coef),expect_true(max(abs((model@trend.coef - trend.coef)/trend.coef)) < precision))
+        test_that(desc = "Check kriging trend", 
+                  expect_true(max(abs((model@trend.coef - trend.coef)/trend.coef)) < precision))
 
     if (!is.null(covariance.sd2))
-        test_that(desc=paste0("Check kriging variance: ",model@covariance@sd2," == ",covariance.sd2),expect_true(abs(model@covariance@sd2 - covariance.sd2)/covariance.sd2 < precision))
+        test_that(desc = "Check kriging variance", 
+                  expect_true(abs(model@covariance@sd2 - covariance.sd2)/covariance.sd2 < precision))
 
     if (!is.null(covariance.range.val))
-        test_that(desc=paste0("Check kriging range: ",model@covariance@range.val," == ",covariance.range.val),expect_true(max(abs((model@covariance@range.val - covariance.range.val)/covariance.range.val)) < precision))
+        test_that(desc = "Check kriging range", 
+                  expect_true(max(abs((model@covariance@range.val - covariance.range.val)/covariance.range.val)) < precision))
 
     if (!is.null(covariance.nugget))
-        test_that(desc=paste0("Check kriging range: ",model@covariance@nugget," == ",covariance.nugget),expect_true(max(abs((model@covariance@nugget - covariance.nugget)/covariance.nugget)) < precision))
+        test_that(desc = "Check kriging nugget", 
+                  expect_true(max(abs((model@covariance@nugget - covariance.nugget)/covariance.nugget)) < precision))
 
     if (!is.null(covariance.eta))
-        test_that(desc=paste0("Check kriging scaling: ",model@covariance@eta," == ",covariance.eta),expect_true(max(abs((model@covariance@eta - covariance.eta)/covariance.eta)) < precision))
+        test_that(desc = "Check kriging scaling", 
+                  expect_true(max(abs((model@covariance@eta - covariance.eta)/covariance.eta)) < precision))
 }
 
 # example(km)

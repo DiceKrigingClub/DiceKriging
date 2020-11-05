@@ -90,7 +90,7 @@ Power-exponential \tab \code{ k(x,y) = exp(-(h/theta)^p) } \cr
 	
 N.A.C. Cressie (1993), \emph{Statistics for spatial data}, Wiley series in probability and mathematical statistics.
 
-C.E. Rasmussen and C.K.I. Williams (2006), \emph{Gaussian Processes for Machine Learning}, the MIT Press, \url{http://www.GaussianProcess.org/gpml}
+C.E. Rasmussen and C.K.I. Williams (2006), \emph{Gaussian Processes for Machine Learning}, the MIT Press, \url{http://www.gaussianprocess.org/gpml}
 
 M.L. Stein (1999), \emph{Interpolation of spatial data, some theory for kriging}, Springer.
 

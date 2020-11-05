@@ -55,12 +55,12 @@ It is also possible to modify the k last (existing) observations.
 \references{
   Bect J., Ginsbourger D., Li L., Picheny V., Vazquez E. (2010),
   \emph{Sequential design of  computer experiments for the estimation of
-  a probability of failure},  Statistics and Computing, pp.1-21, 2011, \url{http://arxiv.org/abs/1009.5177}
+  a probability of failure},  Statistics and Computing, pp.1-21, 2011, \url{https://arxiv.org/abs/1009.5177}
   
   Chevalier C., Bect J., Ginsbourger D., Vazquez E., Picheny V., Richet
   Y. (2011),  \emph{Fast parallel kriging-based stepwise uncertainty
   reduction with  application to the identification of an excursion
-  set},  \url{http://hal.archives-ouvertes.fr/hal-00641108/}
+  set},  \url{https://hal.archives-ouvertes.fr/hal-00641108/}
 }
 \author{ 
   Clement Chevalier (IMSV, Switzerland, and IRSN, France)
