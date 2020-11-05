@@ -20,7 +20,7 @@ License: \tab GPL-2 | GPL-3 \cr
 
 \author{Olivier Roustant, David Ginsbourger, Yves Deville. Contributors: C. Chevalier, Y. Richet.
 
-(maintainer: Olivier Roustant \email{roustant@emse.fr})
+(maintainer: Olivier Roustant \email{roustant@insa-toulouse.fr})
 
 }
 

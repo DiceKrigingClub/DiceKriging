@@ -3,7 +3,7 @@ Title: Kriging Methods for Computer Experiments
 Version: 1.5.8
 Date: 2020-11-05
 Author: Olivier Roustant, David Ginsbourger, Yves Deville. Contributors: Clement Chevalier, Yann Richet.
-Maintainer: Olivier Roustant <roustant@emse.fr>
+Maintainer: Olivier Roustant <roustant@insa-toulouse.fr>
 Description: Estimation, validation and prediction of kriging models. Important functions : km, print.km, plot.km, predict.km.
 Depends: methods
 Suggests: rgenoud (>= 5.8-2.0), foreach, doParallel, testthat, numDeriv
