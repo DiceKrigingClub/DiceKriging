@@ -6,13 +6,15 @@
   Cross validation by leave-one-out for a \code{km} object without noisy observations.
 }
 \usage{
-leaveOneOut.km(model, type, trend.reestim=FALSE)
+leaveOneOut.km(model, type, trend.reestim=FALSE) %, fast=TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{model}{ an object of class "km" without noisy observations.}
+%  \item{folds}{ a list of index subsets without index redundancy within each fold.}
   \item{type}{ a character string corresponding to the kriging family, to be chosen between simple kriging ("SK"), or universal kriging ("UK").}
   \item{trend.reestim}{ should the trend be reestimated when removing an observation? Default to FALSE.}
+%  \item{fast}{ binary option to use analytical }
 }
 
 \details{
@@ -44,7 +46,8 @@ M. Schonlau (1997), \emph{Computer experiments and global optimization}, Ph.D. t
 
 \author{ O. Roustant, D. Ginsbourger, Ecole des Mines de St-Etienne. }
 
-\seealso{ \code{\link{predict,km-method}},  \code{\link{plot,km-method}} }
+\seealso{ \code{\link{predict,km-method}},  \code{\link{plot,km-method}},
+\code{\link{cv}}}
 
 \keyword{models}
 
