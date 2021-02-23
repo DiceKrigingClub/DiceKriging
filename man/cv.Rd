@@ -80,17 +80,15 @@ y <- myfun(design)
 points(design, y, pch = 19)
 
 # Model definition and GP prediction (Kriging)
-mycovtype <- "matern5_2"
-formula <- y ~ 1
 set.seed(1)
-model1 <- km(formula = formula, design = data.frame(design = design), 
-             response = data.frame(y = y), covtype = mycovtype, 
-             nugget = 1e-5)
+model1 <- km(design = data.frame(design = design), 
+             response = data.frame(y = y), nugget = 1e-5)
 pred1 <- predict(model1, newdata = data.frame(design = t), type = "UK") 
 lines(t, pred1$mean, type = "l", col = "blue", lty = 2, lwd = 2)
 
 # Plotting the prediction error versus the GP standard deviation 
 par(mfrow = c(2,1))
+pred_abserrors <- abs(allresp - pred1$mean)
 plot(t, pred_abserrors, type = "l", ylab = "abs pred error")
 plot(t, pred1$sd, type = "l", ylab = "GP prediction sd")
 
@@ -116,8 +114,8 @@ plotCVsd <- function(cvObj, ylim){
       lty = 2, lwd = 2)
 }
 
+loo1Mean <- unlist(loo1$mean)
 loo_abserrors <- abs(y - loo1Mean)
-pred_abserrors <- abs(allresp - pred1$mean)
 ylim <- c(0, max(loo_abserrors, pred_abserrors))
 
 plotCVmean(loo1)
@@ -126,7 +124,7 @@ plotCVsd(loo1, ylim = ylim)
 # Calculation of uncorrelated CV residuals and corresponding qqplot 
 T <- model1@T
 B <- diag(as.numeric(diag(loo1$cvcov.mat))^(-1))
-res <- matrix(y - loo1Mean)
+res <- y - loo1Mean
 stand <- T \%*\% B \%*\% res
 opar <- par(mfrow = c(1, 2))
 qqnorm(stand, 
