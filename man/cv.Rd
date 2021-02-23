@@ -42,7 +42,7 @@ N.A.C. Cressie (1993), \emph{Statistics for spatial data}, Wiley series in proba
 
 O. Dubrule (1983), Cross validation of Kriging in a unique neighborhood. \emph{Mathematical Geology}, \bold{15}, 687-699.
 
-J. Gallier. The schur complement and symmetric positive semidefinite (and defiite) matrices. Retrieved at \url{http://www.cis.upenn.edu/~jean/schur-comp.pdf}.
+J. Gallier. The schur complement and symmetric positive semidefinite (and definite) matrices. Retrieved at \url{https://www.cis.upenn.edu/~jean/schur-comp.pdf}.
 
 D. Ginsbourger and C. Schaerer (2021). Fast calculation of Gaussian Process multiple-fold cross-validation residuals and their covariances. 
 arXiv:2101.03108 [stat.ME].
@@ -82,7 +82,8 @@ points(design, y, pch = 19)
 # Model definition and GP prediction (Kriging)
 set.seed(1)
 model1 <- km(design = data.frame(design = design), 
-             response = data.frame(y = y), nugget = 1e-5)
+             response = data.frame(y = y), nugget = 1e-5,
+             multistart = 10, control = list(trace = FALSE))
 pred1 <- predict(model1, newdata = data.frame(design = t), type = "UK") 
 lines(t, pred1$mean, type = "l", col = "blue", lty = 2, lwd = 2)
 
