@@ -1,7 +1,7 @@
 Package: DiceKriging
 Title: Kriging Methods for Computer Experiments
-Version: 1.5.8
-Date: 2020-11-05
+Version: 1.6.0
+Date: 2021-02-23
 Author: Olivier Roustant, David Ginsbourger, Yves Deville. Contributors: Clement Chevalier, Yann Richet.
 Maintainer: Olivier Roustant <roustant@insa-toulouse.fr>
 Description: Estimation, validation and prediction of kriging models. Important functions : km, print.km, plot.km, predict.km.

@@ -1,3 +1,15 @@
+## DiceKriging 1.6.0
+## change / DiceKriging 1.5.8
+
+  * Add multiple fold cross validation for a km object
+
+## DiceKriging 1.5.8
+## change / DiceKriging 1.5.7
+
+
+  * Fix problems in testthat
+  * Fix problem on trend.deltax [thanks to Rodolphe Le Riche for signaling the bug]
+
 ## DiceKriging 1.5.7
 	
 	* Fix problem in the calls to ".C". The entry points of the DLL
