@@ -59,117 +59,132 @@ M. Schonlau (1997), \emph{Computer experiments and global optimization}, Ph.D. t
 
 \keyword{models}
 \examples{
-# --------------------------------------------------------------------
-# A 1D example illustrating leave-one-out residuals and their correlation 
-# --------------------------------------------------------------------
+# -------------------------------------------------
+# A 1D example illustrating leave-one-out residuals 
+# and their correlation 
+# -------------------------------------------------
 
 # Test function (From Xiong et al. 2007; See scalingFun's doc) 
 myfun <- function(x){ 
-return(y <- sin(30*(x-0.9)^4)*cos(2*(x-0.9)) + (x-0.9)/2)}
-t <- seq(from=0, to=1, by=0.005)
+  sin(30 * (x - 0.9)^4) * cos(2 * (x - 0.9)) + (x - 0.9) / 2
+}
+t <- seq(from = 0, to = 1, by = 0.005)
 allresp <- myfun(t)
-par(mfrow=c(1,1), mar=c(4, 4, 2, 2))
-plot(t,allresp,type="l")
+par(mfrow = c(1, 1), mar = c(4, 4, 2, 2))
+plot(t, allresp, type = "l")
 
 # Design points and associated responses 
 nn <- 10
-design <- seq(0,1,length.out=nn)
+design <- seq(0, 1, length.out = nn)
 y <- myfun(design)
-points(design,y,pch=1)
+points(design, y, pch = 19)
 
 # Model definition and GP prediction (Kriging)
 mycovtype <- "matern5_2"
-formula <- y~1
+formula <- y ~ 1
 set.seed(1)
-model1 <- km(formula=formula,design=data.frame(design=design), 
-             response=data.frame(y=y),covtype=mycovtype,nugget=1e-5)
-pred1 <- predict(model1, newdata=data.frame(design=t), type="UK") 
-lines(t,pred1$mean,type="l",col="red")
+model1 <- km(formula = formula, design = data.frame(design = design), 
+             response = data.frame(y = y), covtype = mycovtype, 
+             nugget = 1e-5)
+pred1 <- predict(model1, newdata = data.frame(design = t), type = "UK") 
+lines(t, pred1$mean, type = "l", col = "blue", lty = 2, lwd = 2)
 
 # Plotting the prediction error versus the GP standard deviation 
-par(mfrow=c(2,1))
-plot(t,abs(allresp-pred1$mean),type="l",ylab="abs pred error")
-plot(t,pred1$sd,type="l",ylab="GP prediction sd")
+par(mfrow = c(2,1))
+plot(t, pred_abserrors, type = "l", ylab = "abs pred error")
+plot(t, pred1$sd, type = "l", ylab = "GP prediction sd")
 
-# Leave-one-out cros-validation with the cv function 
-loofolds <- as.list(seq(1,length(design)))
-loo1 <- cv(model=model1, folds=loofolds, type="UK", 
-              trend.reestim = TRUE, fast=TRUE, light=FALSE) 
+# Leave-one-out cross-validation with the cv function 
+loofolds <- as.list(seq(1, length(design)))
+loo1 <- cv(model = model1, folds = loofolds, type = "UK", 
+              trend.reestim = TRUE, fast = TRUE, light = FALSE) 
+
 # y axis limits need to be taken care of 
-plot(t,allresp,type="l",ylim=c(min(min(as.numeric(loo1$mean)),min(allresp)), max(max(allresp),max(as.numeric(loo1$mean)))))
-points(design,y,pch=1)
-points(design,as.numeric(loo1$mean),col="red",pch=1)
-lines(t,pred1$mean,type="l",col="red")
-loo_abserrors <- abs(y-as.numeric(loo1$mean))
-plot(t,abs(allresp-pred1$mean),type="l",ylab="abs pred error", 
-     ylim=c(0,max(c(loo_abserrors,abs(allresp-pred1$mean)))))
-points(design,loo_abserrors,col="red")
-lines(t,pred1$sd,ylab="GP prediction sd",col="blue")
+plotCVmean <- function(cvObj){
+  cvObjMean <- unlist(cvObj$mean)
+  plot(t, allresp, type = "l", ylim = range(cvObjMean, allresp))
+  points(design, y, pch = 19)
+  lines(t, pred1$mean, type = "l", col = "blue", lty = 2, lwd = 2)
+  points(design, cvObjMean, col = "red", pch = 22, lwd = 2)
+}
+plotCVsd <- function(cvObj, ylim){
+  cv_abserrors <- abs(y - unlist(cvObj$mean))
+  plot(t, pred_abserrors, type = "l", ylab = "abs pred error", 
+       ylim = ylim)
+  points(design, cv_abserrors, col = "red", pch = 22, lwd = 2)
+  lines(t, pred1$sd, ylab = "GP prediction sd", col = "blue", 
+      lty = 2, lwd = 2)
+}
+
+loo_abserrors <- abs(y - loo1Mean)
+pred_abserrors <- abs(allresp - pred1$mean)
+ylim <- c(0, max(loo_abserrors, pred_abserrors))
+
+plotCVmean(loo1)
+plotCVsd(loo1, ylim = ylim)
 
 # Calculation of uncorrelated CV residuals and corresponding qqplot 
 T <- model1@T
 B <- diag(as.numeric(diag(loo1$cvcov.mat))^(-1))
-res <- matrix(y-as.numeric(loo1$mean))
-stand <- T%*%B%*%res
-par(mfrow=c(1,1))
-qqnorm(stand, main="Normal Q-Q Plot of uncorrelated LOO Residuals")
-lines(x <- seq(-2,2,,50), x)
+res <- matrix(y - loo1Mean)
+stand <- T \%*\% B \%*\% res
+opar <- par(mfrow = c(1, 2))
+qqnorm(stand, 
+       main = "Normal Q-Q Plot of uncorrelated LOO Residuals")
+abline(a = 0, b = 1)
 
 # Comparison to "usual" standardized LOO residuals
-usual_stand <- diag(as.numeric(diag(loo1$cvcov.mat))^(-1/2))%*%res
-qqnorm(usual_stand, main="Normal Q-Q Plot of Standardized LOO Residuals") 
-lines(x <- seq(-2,2,,50), x)
+usual_stand <- diag(as.numeric(diag(loo1$cvcov.mat))^(-1/2)) \%*\% res
+qqnorm(usual_stand, 
+       main = "Normal Q-Q Plot of Standardized LOO Residuals") 
+abline(a = 0, b = 1)
+par(opar)
 
-# Calculation and plot of correlations between most left and other cross-validationn residuals 
+# Calculation and plot of correlations between most left 
+# and other cross-validation residuals 
 cvcov.mat <- loo1$cvcov.mat
 coco <- cov2cor(cvcov.mat)
-par(mfrow=c(1,1))
-plot(coco[1,], main="Correlation between first and other LOO residuals", 
-     ylab="Correlation")
+par(mfrow = c(1, 1))
+plot(coco[1, ], type = "h", ylim = c(-1, 1), lwd = 2,
+     main = "Correlation between first and other LOO residuals", 
+     ylab = "Correlation")
+points(coco[1, ])
+abline(h = 0, lty = "dotted")
      
-par(mfrow=c(1,1), mar=c(5.1, 4.1, 4.1, 2.1))
+par(mfrow = c(1, 1), mar = c(5.1, 4.1, 4.1, 2.1))
 
-# ------------------------------------------------------------------------
-# Same example with multiple-fold cross validation under various settings
-# ------------------------------------------------------------------------
+# ------------------------------------------------
+# Same example with multiple-fold cross validation 
+# under various settings
+# ------------------------------------------------
 
 # First with successive two-element folds 
-myfolds <- list(c(1,2),c(3,4),c(5,6),c(7,8), c(9,10))
-mycv <- cv(model=model1, folds=myfolds, type="SK", 
-           trend.reestim = FALSE, fast=TRUE, light=FALSE)  
-mycv
-plot(t,allresp,type="l",ylim=c(min(min(as.numeric(loo1$mean)),min(allresp)),
-                               max(max(allresp),max(as.numeric(loo1$mean)))))
-points(design,y,pch=1)
-points(design,as.numeric(unlist(mycv$mean)),col="red",pch=1)
-lines(t,pred1$mean,type="l",col="red")
-cv_abserrors <- abs(y-as.numeric(unlist(mycv$mean)))
-plot(t,abs(allresp-pred1$mean),type="l",ylab="abs pred error", 
-     ylim=c(0,max(c(loo_abserrors,abs(allresp-pred1$mean)))))
-points(design,cv_abserrors,col="red")
-lines(t,pred1$sd,ylab="GP prediction sd",col="blue")
+myfolds <- list(c(1, 2), c(3, 4), c(5, 6), c(7, 8), c(9, 10))
+cv_2fold <- cv(model = model1, folds = myfolds, type = "SK", 
+               trend.reestim = FALSE, fast = TRUE, light = FALSE)  
+cv_2fold
+
+opar <- par(mfrow = c(2,1))
+plotCVmean(cv_2fold)
+plotCVsd(cv_2fold, ylim = ylim)
+
 
 # With overlapping two-element folds 
-myfolds <- list(c(1,3),c(2,4),c(3,5),c(4,6), c(5,7), c(6,8), c(7,9), c(8,10))
-mycv <- cv(model=model1, folds=myfolds, type="UK", 
-           trend.reestim = TRUE, fast=TRUE, light=FALSE) # 
-mycv
+myfolds <- list(c(1, 3), c(2, 4), c(3, 5), c(4, 6), 
+                c(5, 7), c(6, 8), c(7, 9), c(8, 10))
+cv_2fold_overlap <- cv(model = model1, folds = myfolds, type = "UK", 
+                       trend.reestim = TRUE, fast = TRUE, light = FALSE)
+cv_2fold_overlap
 
 
 # With a three-fold partition 
-myfolds <- list(c(1,2,3),c(4,5,6,7),c(8, 9,10))
-mycv <- cv(model=model1, folds=myfolds, type="UK", 
-           trend.reestim = TRUE, fast=TRUE, light=FALSE) # 
-mycv
-plot(t,allresp,type="l",ylim=c(min(min(as.numeric(loo1$mean)),min(allresp)),
-                               max(max(allresp),max(as.numeric(loo1$mean)))))
-points(design,y,pch=1)
-points(design,as.numeric(unlist(mycv$mean)),col="red",pch=1)
-lines(t,pred1$mean,type="l",col="red")
-cv_abserrors <- abs(y-as.numeric(unlist(mycv$mean)))
-plot(t,abs(allresp-pred1$mean),type="l",ylab="abs pred error", 
-     ylim=c(0,max(c(loo_abserrors,abs(allresp-pred1$mean)))))
-points(design,cv_abserrors,col="red")
-lines(t,pred1$sd,ylab="GP prediction sd",col="blue")
+myfolds <- list(c(1, 2, 3), c(4, 5, 6, 7), c(8, 9, 10))
+cv_3fold <- cv(model = model1, folds = myfolds, type = "UK", 
+           trend.reestim = TRUE, fast = TRUE, light = FALSE)
+cv_3fold
+
+plotCVmean(cv_3fold)
+plotCVsd(cv_3fold, ylim = ylim)
+par(opar)
 
 }
