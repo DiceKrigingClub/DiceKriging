@@ -55,7 +55,7 @@ G. Matheron (1963), Principles of geostatistics, \emph{Economic Geology}, \bold{
 
 G. Matheron (1969), Le krigeage universel, \emph{Les Cahiers du Centre de Morphologie Mathematique de Fontainebleau}, \bold{1}.
 
-W.R. Mebane, Jr., J.S. Sekhon (2011). Genetic Optimization Using Derivatives: The rgenoud Package for R. \emph{Journal of Statistical Software}, \bold{42}(11), 1-26. \url{https://www.jstatsoft.org/v42/i11/}
+W.R. Mebane, Jr., J.S. Sekhon (2011). Genetic Optimization Using Derivatives: The rgenoud Package for R. \emph{Journal of Statistical Software}, \bold{42}(11), 1-26. \doi{https://doi.org/10.18637/jss.v042.i11}
 
 J.-S. Park and J. Baek (2001), Efficient computation of maximum likelihood estimators in a spatial linear model with power exponential covariogram, \emph{Computer Geosciences}, \bold{27} no. 1, 1-7.
 
@@ -63,7 +63,7 @@ C.E. Rasmussen and C.K.I. Williams (2006), \emph{Gaussian Processes for Machine 
 
 B.D. Ripley (1987), \emph{Stochastic Simulation}, Wiley.
 
-O. Roustant, D. Ginsbourger and Yves Deville (2012), DiceKriging, DiceOptim: Two R Packages for the Analysis of Computer Experiments by Kriging-Based Metamodeling and Optimization, \emph{Journal of Statistical Software}, \bold{51}(1), 1-55, \url{https://www.jstatsoft.org/v51/i01/}.
+O. Roustant, D. Ginsbourger and Yves Deville (2012), DiceKriging, DiceOptim: Two R Packages for the Analysis of Computer Experiments by Kriging-Based Metamodeling and Optimization, \emph{Journal of Statistical Software}, \bold{51}(1), 1-55, \doi{https://doi.org/10.18637/jss.v051.i01}.
 
 J. Sacks, W.J. Welch, T.J. Mitchell, and H.P. Wynn (1989), Design and analysis of computer experiments, \emph{Statistical Science}, \bold{4}, 409-435.
 
