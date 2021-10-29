@@ -10,7 +10,7 @@ citEntry(entry = "Article",
   volume       = "51",
   number       = "1",
   pages        = "1--55",
-  doi          = "https://doi.org/10.18637/jss.v051.i01",
+  doi          = "10.18637/jss.v051.i01",
   textVersion  =
   paste("Olivier Roustant, David Ginsbourger, Yves Deville (2012).",
         "DiceKriging, DiceOptim: Two R Packages for the Analysis of Computer Experiments by Kriging-Based Metamodeling and Optimization.",
