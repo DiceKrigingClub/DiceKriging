@@ -33,8 +33,8 @@ function(param, model, envir=NULL) {
 	} else if (identical(model@case, "LLconcentration_beta")) {
 		
 		nparam <- length(param)
-    if (class(model@covariance) != "covAdditive0") {
-		  model@covariance <- vect2covparam(model@covariance, param[1:(nparam-1)])
+    if (!inherits(model@covariance, "covAdditive0")) {
+        model@covariance <- vect2covparam(model@covariance, param[1:(nparam-1)])
 		  model@covariance@sd2 <- param[nparam]
     } else {
       model@covariance <- vect2covparam(model@covariance, param)

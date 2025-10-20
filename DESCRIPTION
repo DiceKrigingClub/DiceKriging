@@ -1,9 +1,27 @@
 Package: DiceKriging
 Title: Kriging Methods for Computer Experiments
 Version: 1.6.1
-Date: 2021-11-01
-Author: Olivier Roustant, David Ginsbourger, Yves Deville. Contributors: Clement Chevalier, Yann Richet.
-Maintainer: Olivier Roustant <roustant@insa-toulouse.fr>
+Date: 2025-10-20
+Authors@R: c(person(given = "Olivier",
+                    family = "Roustant",
+                    role = c("aut", "cre"),
+                    email = "roustant@insa-toulouse.fr",
+                    comment = c(ORCID = "0009-0004-4709-7177")),
+             person(given = "David",
+                    family = "Ginsbourger",
+                    role = "aut", 
+                    comment = c(ORCID = "0000-0003-2724-2678")),
+             person(given = "Yves", 
+                    family = "Deville", 
+                    role = "aut", 
+                    comment = c(ORCID = "0000-0002-1233-488X")),
+             person(given = "Clément",
+                    family = "Chevalier",
+                    role = "ctb"),
+             person(given = "Yann",
+                    family = "Richet",
+                    role = "ctb",
+                    comment = c(ORCID = "0000-0002-5677-8458")))
 Description: Estimation, validation and prediction of kriging models. Important functions : km, print.km, plot.km, predict.km.
 Depends: methods
 Suggests: rgenoud (>= 5.8-2.0), foreach, doParallel, testthat, numDeriv

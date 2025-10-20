@@ -63,8 +63,9 @@ m1.loo.test = list(mean = c(286.993256592263, 61.1933200186092, 13.3103372396603
 				   	      2.30008916257098, 4.30907401785217, 4.30907401784204,2.30008916257098, 2.30008916257098, 4.30907401783865,
 				   	      10.7725463325132, 5.74056179815971, 5.74056179814956, 10.7725463325064))
 
-test_that(desc="Test leaveOneOut",expect_that(max(abs(m1.loo.test$mean-m1.loo$mean))<1e-6, is_true()))
-test_that(desc="Test leaveOneOut",expect_that(max(abs(m1.loo.test$sd-m1.loo$sd))<1e-6, is_true()))
+test_that(desc="Test leaveOneOut",expect_true(max(abs(m1.loo.test$mean-m1.loo$mean)) < 1e-6))
+
+test_that(desc="Test leaveOneOut",expect_true(max(abs(m1.loo.test$sd-m1.loo$sd)) < 1e-6))
 
 m2.loo = leaveOneOut.km(m2,type="UK")
 
@@ -75,8 +76,8 @@ m2.loo.test = list(mean = c(295.42310365247, 58.7310677087344, 15.7232029614909,
 				   	   1.9439593480619, 3.66940747003794, 3.66940746999794, 1.94395934805049, 1.94395934807647, 3.66940747003195,
 				   	   9.40690817621748, 4.88889794440019, 4.88889794440971, 9.40690817632347))
 
-test_that(desc="Test leaveOneOut",expect_that(max(abs(m2.loo.test$mean-m2.loo$mean))<1e-6, is_true()))
-test_that(desc="Test leaveOneOut",expect_that(max(abs(m2.loo.test$sd-m2.loo$sd))<1e-6, is_true()))
+test_that(desc="Test leaveOneOut",expect_true(max(abs(m2.loo.test$mean-m2.loo$mean)) < 1e-6))
+test_that(desc="Test leaveOneOut",expect_true(max(abs(m2.loo.test$sd-m2.loo$sd)) < 1e-6))
 
 
 context("Checking km examples results: 1D example with penalized MLE")
@@ -575,5 +576,5 @@ p.test = list(mean=c(-0.6181866493757, -0.619384327994964, -0.617544523595288, -
                    0.000229075585637918, 0.000214959535503335, 0.000191470767953811,
                    0.000158348663688514, 0.000115429547853075, 6.26416716073123e-05,
                    5.4052192726006e-09))
-test_that(desc="Test predict",expect_that(max(abs(p$mean-p.test$mean))<1e-6, is_true()))
-test_that(desc="Test predict",expect_that(max(abs(p$sd-p.test$sd))<1e-6, is_true()))
+test_that(desc="Test predict", expect_true(max(abs(p$mean-p.test$mean)) < 1e-6))
+test_that(desc="Test predict", expect_true(max(abs(p$sd-p.test$sd)) < 1e-6))

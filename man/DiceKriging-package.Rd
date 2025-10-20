@@ -53,7 +53,7 @@ W.R. Mebane, Jr., J.S. Sekhon (2011). Genetic Optimization Using Derivatives: Th
 
 J.-S. Park and J. Baek (2001), Efficient computation of maximum likelihood estimators in a spatial linear model with power exponential covariogram, \emph{Computer Geosciences}, \bold{27} no. 1, 1-7.
 
-C.E. Rasmussen and C.K.I. Williams (2006), \emph{Gaussian Processes for Machine Learning}, the MIT Press, \url{http://www.gaussianprocess.org/gpml/}
+C.E. Rasmussen and C.K.I. Williams (2006), \emph{Gaussian Processes for Machine Learning}, the MIT Press, \url{https://gaussianprocess.org/gpml/}
 
 B.D. Ripley (1987), \emph{Stochastic Simulation}, Wiley.
 
