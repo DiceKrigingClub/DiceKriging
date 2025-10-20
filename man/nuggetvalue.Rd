@@ -12,9 +12,8 @@
 }
 
 \arguments{
-  \item{x}{ an object containing the covariance structure.}
-  \item{value}{ an optional variance value standing for the homogeneous nugget effect.}
+  \item{x}{an object containing the covariance structure.}
+  \item{value}{an optional variance value standing for the homogeneous nugget effect.}
 }
-
 
 \keyword{models}
