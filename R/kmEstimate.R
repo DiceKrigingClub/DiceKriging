@@ -196,7 +196,11 @@ function(model, envir) {
     o <- do.call(rgenoud::genoud, genoudArgs)   
     	
 	}
-   
+  
+  # compute fn at the optimum, to ensure that the variables computed
+  # in envir correspond to this final value in the optimization process.
+  do.call(fn, list(param = o$par, model = model, envir = envir))
+  
   model@logLik <- as.numeric(o$value)
   
   
