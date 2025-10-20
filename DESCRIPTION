@@ -2,6 +2,7 @@ Package: DiceKriging
 Title: Kriging Methods for Computer Experiments
 Version: 1.6.1
 Date: 2025-10-20
+Encoding: UTF-8
 Authors@R: c(person(given = "Olivier",
                     family = "Roustant",
                     role = c("aut", "cre"),
