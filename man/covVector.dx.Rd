@@ -13,11 +13,11 @@ covVector.dx(object, x, X, c)
   \item{object}{an object specifying the covariance structure. }
   \item{x}{a vector representing the specific location. }
   \item{X}{a matrix whose columns represent locations. }
-  \item{c}{a vector containing the covariances between the location \code{x} and the set of locations specified in \code{X} (see \code{\link{covMat1Mat2}}). }
+  \item{c}{a matrix containing the covariances between the location \code{x} and the set of locations specified in \code{X} (see \code{\link{covMat1Mat2}}). }
 }
 
 \value{
-  A vector of real numbers equal to the gradient of \code{c} as a function of \code{x}.
+  A matrix of real numbers equal to the gradient of \code{c} as a function of \code{x}.
 }
 
 \author{ Olivier Roustant, David Ginsbourger, Ecole des Mines de St-Etienne. }

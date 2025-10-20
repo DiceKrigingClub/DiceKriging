@@ -427,7 +427,7 @@ update.km <- function(object,
         TheClass <- class(TheCov)
         
         if (is.null(kmcontrol$penalty)) kmcontrol$penalty <- object@penalty
-        if (length(object@penalty == 0)) kmcontrol$penalty <- NULL
+        if (length(object@penalty) == 0) kmcontrol$penalty <- NULL
         if (is.null(kmcontrol$optim.method)) kmcontrol$optim.method <- object@optim.method 
         if (length(kmcontrol$optim.method) == 0) kmcontrol$optim.method <- "BFGS"
         if (is.null(kmcontrol$control)) kmcontrol$control <- object@control
