@@ -1,3 +1,12 @@
+## DiceKriging 1.6.1
+## change / DiceKriging 1.6.0
+
+  * Bug fix: possible inconsistency between the final value returned by the optimization in kmEstimate and variables stored in envir [thanks to Charlie Sire for signaling the problem]
+  * Fixed check problem in documentation with RDevel [thanks to @MrFlick on StackOverflow] 
+  * New syntax for testthat 
+  * References updates
+  * Modification of the DESCRIPTION file to fit with new CRAN requirements
+
 ## DiceKriging 1.6.0
 ## change / DiceKriging 1.5.8
 
@@ -6,15 +15,12 @@
 ## DiceKriging 1.5.8
 ## change / DiceKriging 1.5.7
 
-
   * Fix problems in testthat
   * Fix problem on trend.deltax [thanks to Rodolphe Le Riche for signaling the bug]
 
 ## DiceKriging 1.5.7
 	
-	* Fix problem in the calls to ".C". The entry points of the DLL
-	should not be searched for by their name but by their registred
-	symbol. So the quotes are removed.
+	* Fix problem in the calls to ".C". The entry points of the DLL	should not be searched for by their name but by their registred	symbol. So the quotes are removed.
 	
 ## DiceKriging 1.5.6
 ## change / DiceKriging 1.5.5
