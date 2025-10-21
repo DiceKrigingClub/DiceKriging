@@ -18,6 +18,5 @@ nuggetvalue(x) <- value
 
 \seealso{ \code{\link{nuggetflag}} }
 
-}
 
 \keyword{models}
