@@ -16,4 +16,8 @@ nuggetvalue(x) <- value
 \item{value}{ an optional variance value standing for the homogeneous nugget effect.}
 }
 
+\seealso{ \code{\link{nuggetflag}} }
+
+}
+
 \keyword{models}
